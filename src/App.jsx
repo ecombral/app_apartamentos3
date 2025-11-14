@@ -258,7 +258,7 @@ ${lang==='es'?'Nombre':'Name'}: ${nameVal}
 ${t.people}: ${guestsVal}
 ${t.priceTotal}: ${total ?? 'N/A'}`;
     const encoded = encodeURIComponent(message);
-    return `https://wa.me/?text=${encoded}`;
+    return `https://wa.me/34611044315?text=${encoded}`;
   }
 
   // Contact form state
@@ -268,7 +268,7 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
 
   function sendContactViaWhatsApp(){
     const msg = `${lang==='es'?'Contacto':'Contact'}:%0A${t.email}: ${contactEmail}%0A${t.phone}: ${contactPhone}%0A${t.message}: ${contactMessage}`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(decodeURIComponent(msg))}`, '_blank');
+    window.open(`https://wa.me/34611033315?text=${encodeURIComponent(decodeURIComponent(msg))}`, '_blank');
   }
 
   // carousel helpers for homepage per-apartment
