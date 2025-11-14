@@ -15,7 +15,7 @@ Notes: The app fetches the CSV on load and every 60s (configurable). The homepag
 */
 
 import React, { useEffect, useMemo, useState } from "react";
-import useGoogleSheet from "../../src/components/useGoogleSheet";
+import useGoogleSheet from "./components/useGoogleSheet";
 
 // ---- CONFIG ----
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoXmH3uHC7Ezw17NKLFWaVJzF2kRveW4xquJGGr3VYckc1lGqMOW62QeTyhCDiUPu4vYkxYTEInOXf/pub?output=csv";
