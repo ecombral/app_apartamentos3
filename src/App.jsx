@@ -188,6 +188,20 @@ export default function AppRent() {
     return obj;
   });
 
+  // lightbox / modal for viewing images larger
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  function openLightbox(images, index = 0){
+    setLightboxImages(images);
+    setLightboxIndex(index || 0);
+    setLightboxOpen(true);
+  }
+  function closeLightbox(){ setLightboxOpen(false); }
+  function prevLightbox(){ setLightboxIndex(i => (i-1+lightboxImages.length) % lightboxImages.length); }
+  function nextLightbox(){ setLightboxIndex(i => (i+1) % lightboxImages.length); }
+
   // loading flag mapped from hook
   const loading = loadingSheet;
 
@@ -271,6 +285,13 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
     window.open(`https://wa.me/34611033315?text=${encodeURIComponent(decodeURIComponent(msg))}`, '_blank');
   }
 
+  function sendContactViaEmail(){
+    const subject = (lang==='es' ? 'Contacto' : 'Contact');
+    const body = `${lang==='es'? 'Contacto' : 'Contact'}%0A%0A${t.email}: ${contactEmail}%0A${t.phone}: ${contactPhone}%0A${t.message}: ${contactMessage}`;
+    // opens user's default mail client
+    window.open(`mailto:youremail@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(decodeURIComponent(body))}`, '_blank');
+  }
+
   // carousel helpers for homepage per-apartment
   function nextImageForApt(apartmentKey){
     const apartment = apartmentByKey(apartmentKey);
@@ -285,7 +306,7 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
 
   return (
   <div className="min-h-screen p-6" style={{ backgroundImage: "url('/images/imagenfondo.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">{t.appTitle}</h1>
           <div className="flex items-center gap-3">
@@ -310,7 +331,7 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
                   return (
                     <article key={a.id} className="bg-white p-3 rounded shadow-sm">
                       <div className="relative h-36 w-full overflow-hidden rounded">
-                        <img src={src} alt={a.title_es} className="h-full w-full object-cover" />
+                        <img src={src} alt={a.title_es} className="h-full w-full object-cover cursor-pointer" onClick={()=>openLightbox(imgs, idx)} />
                         <button onClick={()=>prevImageForApt(a.key)} className="absolute left-1 top-1/2 -translate-y-1/2 bg-white/70 p-1 rounded">‹</button>
                         <button onClick={()=>nextImageForApt(a.key)} className="absolute right-1 top-1/2 -translate-y-1/2 bg-white/70 p-1 rounded">›</button>
                       </div>
@@ -453,7 +474,8 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
                   <textarea value={contactMessage} onChange={e=>setContactMessage(e.target.value)} className="mt-1 p-2 border rounded w-full" rows={4}></textarea>
 
                   <div className="mt-3 flex gap-2">
-                    <button onClick={sendContactViaWhatsApp} className="px-3 py-2 bg-green-600 text-white rounded">{t.send}</button>
+                    <button onClick={sendContactViaEmail} className="px-3 py-2 bg-blue-600 text-white rounded">{t.send}</button>
+                    <button onClick={sendContactViaWhatsApp} className="px-3 py-2 bg-green-600 text-white rounded">{t.sendWhatsApp}</button>
                     <a href={`mailto:youremail@example.com?subject=${encodeURIComponent(lang==='es'?'Contacto':'Contact')}`} className="px-3 py-2 border rounded">{t.email}</a>
                   </div>
                 </div>
@@ -493,7 +515,19 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
           )}
         </main>
 
-        <footer className="mt-6 text-center text-sm text-gray-500">Small app — edit the Google Sheet to manage availability & prices. Host images publicly (public folder or cloud).</footer>
+        <footer className="mt-6 text-center text-sm text-gray-500"></footer>
+
+        {lightboxOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" onClick={closeLightbox}>
+            <div className="relative max-w-4xl w-full mx-4" onClick={e=>e.stopPropagation()}>
+              <button onClick={closeLightbox} className="absolute right-2 top-2 z-50 bg-white/80 rounded-full p-2">✕</button>
+              <button onClick={prevLightbox} className="absolute left-2 top-1/2 -translate-y-1/2 z-50 bg-white/80 rounded-full p-2">‹</button>
+              <button onClick={nextLightbox} className="absolute right-12 top-1/2 -translate-y-1/2 z-50 bg-white/80 rounded-full p-2">›</button>
+              <img src={lightboxImages[lightboxIndex]} alt="preview" className="w-full h-[70vh] object-contain rounded shadow-lg bg-white" />
+              <div className="text-center text-sm text-white mt-2">{lightboxIndex+1} / {lightboxImages.length}</div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,19 @@
+Asunto: Correcciones en la app de apartamentos
+
+Hola,
+
+He aplicado las siguientes correcciones en la app:
+
+- He corregido la carga y el parsing del CSV para usar PapaParse (hook `useGoogleSheet`) y añadido refresco automático.
+- El calendario ahora muestra precios por fecha y acepta selección de fechas directamente haciendo clic en el calendario (start/end).
+- Añadí controles para cambiar mes/año en el calendario.
+- La app ahora acepta el campo "apartment" en la hoja de Google tanto por `id` (ej. "camion") como por `key` (ej. "El camion").
+- Reemplacé/optimizé la vista de mapa según lo solicitado (mapa eliminado y se mantiene botón para abrir en Google Maps).
+- Cambié el fondo de la app para usar `public/images/imagenfondo.jpg`.
+- Mejoré la anchura del contenedor para ser responsive (uso de `max-w-screen-xl` y padding responsivo).
+- El enlace de WhatsApp ahora abre con el número +34 611033315 ya seleccionado.
+
+Si quieres que envíe el correo desde mi entorno, necesito acceso a tu cuenta o permisos para usar un servidor SMTP. En cualquier caso, te dejo este borrador para que lo revises y mandes desde tu correo (o puedo generar un `mailto:` preformateado si lo prefieres).
+
+Saludos,
+[Tu nombre]
