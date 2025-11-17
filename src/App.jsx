@@ -358,7 +358,7 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
 
                       <div className="mt-3 flex justify-between items-center">
                         <div className="text-xs text-gray-500">{a.photoCount} {lang==='es'? 'fotos':'photos'}</div>
-                        <button onClick={()=>{ setSelectedApt(a.key); setStart(''); setEnd(''); setTab('home'); }} className="px-3 py-1 bg-blue-600 text-white rounded">{t.checkAvailability}</button>
+                        <button onClick={()=>{ setSelectedApt(a.key); setStart(''); setEnd(''); setTab('apartment'); }} className="px-3 py-1 bg-blue-600 text-white rounded">{t.checkAvailability}</button>
                       </div>
                     </article>
                   );
@@ -367,107 +367,7 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
 
               {loading && <div className="text-sm text-gray-500">{t.loading}</div>}
 
-              {selectedApt && (
-                <section className="bg-white p-4 rounded shadow">
-                  <div className="flex items-start justify-between mb-2 gap-4">
-                    <div>
-                      <button onClick={()=>setSelectedApt(null)} className="text-sm text-blue-600">{t.back}</button>
-                      <div className="text-lg font-bold mt-1">{lang==='es'?apartmentByKey(selectedApt).title_es:apartmentByKey(selectedApt).title_en}</div>
-                      <div className="text-sm text-gray-600 mt-1">{lang==='es'?apartmentByKey(selectedApt).short_es:apartmentByKey(selectedApt).short_en}</div>
-                    </div>
-
-                    {/* Images removed from detailed view as requested */}
-                  </div>
-
-                  {/* Detailed description */}
-                  <div className="mb-4">
-                    <h3 className="font-semibold mb-1">{lang==='es'?'Descripción':'Description'}</h3>
-                    <p className="text-sm text-gray-700">{lang==='es'?apartmentByKey(selectedApt).long_es:apartmentByKey(selectedApt).long_en}</p>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <div className="mb-2">
-                        <label className="block text-sm">{t.startDate} / {t.endDate}</label>
-                        <div className="mt-1 text-sm text-gray-700">{start || '—'} {start && end ? `→ ${end}` : ''}</div>
-                        <div className="text-xs text-gray-500 mt-1">{lang==='es'?'Selecciona fechas en el calendario':'Select dates using the calendar'}</div>
-                      </div>
-
-                      <div className="mb-2">
-                        <label className="block text-sm">{t.name}</label>
-                        <input placeholder={lang==='es'?'Tu nombre':'Your name'} value={name} onChange={e=>setName(e.target.value)} className="mt-1 p-2 border rounded w-full" />
-                      </div>
-
-                      <div className="mb-4">
-                        <label className="block text-sm">{t.guests}</label>
-                        <input type="number" min={1} value={guests} onChange={e=>setGuests(e.target.value)} className="mt-1 p-2 border rounded w-full" />
-                      </div>
-
-                      <div className="mb-2">
-                        <strong>{t.priceTotal}:</strong> {start && end ? (calcTotal(selectedApt, start, end) ?? '—') : '—'}
-                      </div>
-
-                      <div className="flex gap-2">
-                        <a className={`px-3 py-2 rounded ${start && end && allDaysAvailable(selectedApt,start,end) ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-700 pointer-events-none'}`} href={start && end ? createWhatsAppLink(selectedApt,start,end,name,guests) : '#'} target="_blank" rel="noreferrer">{t.sendWhatsApp}</a>
-                        <button className="px-3 py-2 rounded border" onClick={()=>{ setStart(''); setEnd(''); setName(''); setGuests(2); }}>{t.back}</button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold">{lang==='es'?'Calendario':'Calendar'}</h4>
-
-                      <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-2">
-                            <button onClick={()=>setCalendarBase(b => new Date(b.getFullYear(), b.getMonth()-1, 1))} className="px-2 py-1 border rounded">‹</button>
-                            <button onClick={()=>setCalendarBase(b => new Date(b.getFullYear(), b.getMonth()+1, 1))} className="px-2 py-1 border rounded">›</button>
-                            <select value={calendarBase.getMonth()} onChange={e=>setCalendarBase(b=> new Date(b.getFullYear(), Number(e.target.value), 1))} className="p-1 border rounded text-sm">
-                              {Array.from({length:12}).map((_,i)=> <option key={i} value={i}>{new Date(0,i).toLocaleString(lang==='es'?'es-ES':'en-US',{month:'long'})}</option>)}
-                            </select>
-                            <input type="number" value={calendarBase.getFullYear()} onChange={e=>setCalendarBase(b=> new Date(Number(e.target.value)||b.getFullYear(), b.getMonth(), 1))} className="w-20 p-1 border rounded text-sm" />
-                          </div>
-                          <div className="text-sm text-gray-600">{calendarBase.toLocaleString(lang==='es'?'es-ES':'en-US',{month:'long', year:'numeric'})}</div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {[0,1].map(monthOffset => (
-                            <CalendarMonth key={monthOffset}
-                                           monthOffset={monthOffset}
-                                           apartmentKey={selectedApt}
-                                           availability={availability[selectedApt]||{}}
-                                           lang={lang}
-                                           baseDate={calendarBase}
-                                           selectedStart={start}
-                                           selectedEnd={end}
-                                           onDayClick={(d)=>{
-                                             // d is 'YYYY-MM-DD'
-                                             if(!start){ setStart(d); setEnd(''); return; }
-                                             if(start && !end){
-                                               if(d >= start){
-                                                 setEnd(d);
-                                                 // If selected end date is outside the two visible months, advance calendar
-                                                 const endDateObj = new Date(d);
-                                                 const baseMonth = calendarBase.getMonth();
-                                                 const baseYear = calendarBase.getFullYear();
-                                                 // If endDate is after the last visible month
-                                                 if (endDateObj.getFullYear() > baseYear || (endDateObj.getFullYear() === baseYear && endDateObj.getMonth() > baseMonth+1)) {
-                                                   setCalendarBase(new Date(endDateObj.getFullYear(), endDateObj.getMonth()-1, 1));
-                                                 }
-                                                 return;
-                                               }
-                                               // clicked before start -> make it the new start
-                                               setStart(d); setEnd(''); return;
-                                             }
-                                             // both present -> start new selection
-                                             setStart(d); setEnd('');
-                                           }} />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              )}
+              {/* selectedApt detailed view moved to its own page/tab (see tab==='apartment') */}
             </section>
           )}
 
@@ -541,6 +441,98 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
               </div>
             </section>
           )}
+          {tab==='apartment' && selectedApt && (
+            <section className="bg-white p-6 rounded shadow max-w-4xl mx-auto mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <button onClick={()=>{ setSelectedApt(null); setTab('home'); }} className="text-sm text-blue-600">{t.back}</button>
+                  <div className="text-2xl font-bold mt-1">{lang==='es'?apartmentByKey(selectedApt).title_es:apartmentByKey(selectedApt).title_en}</div>
+                  <div className="text-sm text-gray-600 mt-1">{lang==='es'?apartmentByKey(selectedApt).short_es:apartmentByKey(selectedApt).short_en}</div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h3 className="font-semibold mb-1">{lang==='es'?'Descripción':'Description'}</h3>
+                <p className="text-sm text-gray-700">{lang==='es'?apartmentByKey(selectedApt).long_es:apartmentByKey(selectedApt).long_en}</p>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="font-semibold mb-2">{lang==='es'?'Calendario':'Calendar'}</h4>
+                <div className="mb-2 flex items-center gap-2">
+                  <button onClick={()=>setCalendarBase(b => new Date(b.getFullYear(), b.getMonth()-1, 1))} className="px-2 py-1 border rounded">‹</button>
+                  <button onClick={()=>setCalendarBase(b => new Date(b.getFullYear(), b.getMonth()+1, 1))} className="px-2 py-1 border rounded">›</button>
+                  <select value={calendarBase.getMonth()} onChange={e=>setCalendarBase(b=> new Date(b.getFullYear(), Number(e.target.value), 1))} className="p-1 border rounded text-sm">
+                    {Array.from({length:12}).map((_,i)=> <option key={i} value={i}>{new Date(0,i).toLocaleString(lang==='es'?'es-ES':'en-US',{month:'long'})}</option>)}
+                  </select>
+                  <input type="number" value={calendarBase.getFullYear()} onChange={e=>setCalendarBase(b=> new Date(Number(e.target.value)||b.getFullYear(), b.getMonth(), 1))} className="w-24 p-1 border rounded text-sm" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[0,1].map(monthOffset => (
+                    <CalendarMonth key={monthOffset}
+                                   monthOffset={monthOffset}
+                                   apartmentKey={selectedApt}
+                                   availability={availability[selectedApt]||{}}
+                                   lang={lang}
+                                   baseDate={calendarBase}
+                                   selectedStart={start}
+                                   selectedEnd={end}
+                                   onDayClick={(d)=>{
+                                     if(!start){ setStart(d); setEnd(''); return; }
+                                     if(start && !end){
+                                       if(d >= start){
+                                         setEnd(d);
+                                         const endDateObj = new Date(d);
+                                         const baseMonth = calendarBase.getMonth();
+                                         const baseYear = calendarBase.getFullYear();
+                                         if (endDateObj.getFullYear() > baseYear || (endDateObj.getFullYear() === baseYear && endDateObj.getMonth() > baseMonth+1)) {
+                                           setCalendarBase(new Date(endDateObj.getFullYear(), endDateObj.getMonth()-1, 1));
+                                         }
+                                         return;
+                                       }
+                                       setStart(d); setEnd(''); return;
+                                     }
+                                     setStart(d); setEnd('');
+                                   }} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <div className="mb-2">
+                    <label className="block text-sm">{t.startDate} / {t.endDate}</label>
+                    <div className="mt-1 text-sm text-gray-700">{start || '—'} {start && end ? `→ ${end}` : ''}</div>
+                    <div className="text-xs text-gray-500 mt-1">{lang==='es'?'Selecciona fechas en el calendario':'Select dates using the calendar'}</div>
+                  </div>
+
+                  <div className="mb-2">
+                    <label className="block text-sm">{t.name}</label>
+                    <input placeholder={lang==='es'?'Tu nombre':'Your name'} value={name} onChange={e=>setName(e.target.value)} className="mt-1 p-2 border rounded w-full" />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm">{t.guests}</label>
+                    <input type="number" min={1} value={guests} onChange={e=>setGuests(e.target.value)} className="mt-1 p-2 border rounded w-full" />
+                  </div>
+
+                  <div className="mb-2">
+                    <strong>{t.priceTotal}:</strong> {start && end ? (calcTotal(selectedApt, start, end) ?? '—') : '—'}
+                  </div>
+
+                  <div className="flex gap-2 mt-3">
+                    <a className={`px-3 py-2 rounded ${start && end && allDaysAvailable(selectedApt,start,end) ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-700 pointer-events-none'}`} href={start && end ? createWhatsAppLink(selectedApt,start,end,name,guests) : '#'} target="_blank" rel="noreferrer">{t.sendWhatsApp}</a>
+                    <button className="px-3 py-2 rounded border" onClick={()=>{ setStart(''); setEnd(''); setName(''); setGuests(2); }}>{t.back}</button>
+                  </div>
+                </div>
+
+                <div>
+                  {/* Right column left for future info or photos */}
+                </div>
+              </div>
+            </section>
+          )}
+
         </main>
 
         <footer className="mt-6 text-center text-sm text-gray-500"></footer>
