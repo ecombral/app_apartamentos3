@@ -170,6 +170,7 @@ export default function AppRent() {
   const t = TEXT[lang];
 
   const [tab, setTab] = useState('home'); // 'home' | 'activities' | 'contact' | 'howto'
+  const [showMobileNav, setShowMobileNav] = useState(false);
 
   // sheet data is fetched via useGoogleSheet (PapaParse)
   const { data: sheetData, loading: loadingSheet, error: sheetError } = useGoogleSheet(SHEET_CSV_URL, REFRESH_SECONDS);
@@ -307,15 +308,31 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
   return (
   <div className="min-h-screen p-6" style={{ backgroundImage: "url('/images/imagenfondo.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">{t.appTitle}</h1>
           <div className="flex items-center gap-3">
+            {/* Desktop nav */}
             <nav className="hidden sm:flex gap-2">
               <button onClick={()=>setTab('home')} className={`px-3 py-1 rounded ${tab==='home'? 'bg-blue-600 text-white':'border'}`}>{t.home}</button>
               <button onClick={()=>setTab('activities')} className={`px-3 py-1 rounded ${tab==='activities'? 'bg-blue-600 text-white':'border'}`}>{t.activities}</button>
               <button onClick={()=>setTab('contact')} className={`px-3 py-1 rounded ${tab==='contact'? 'bg-blue-600 text-white':'border'}`}>{t.contact}</button>
               <button onClick={()=>setTab('howto')} className={`px-3 py-1 rounded ${tab==='howto'? 'bg-blue-600 text-white':'border'}`}>{t.howto}</button>
             </nav>
+            {/* Mobile nav: hamburger */}
+            <div className="sm:hidden relative">
+              <button onClick={()=>setShowMobileNav(s=>!s)} className="px-3 py-1 border rounded" aria-label="Menú">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              </button>
+              {showMobileNav && (
+                <div className="absolute right-0 mt-2 bg-white rounded shadow-lg z-10 flex flex-col min-w-[140px]">
+                  <button onClick={()=>{setTab('home');setShowMobileNav(false);}} className={`px-3 py-2 text-left ${tab==='home'? 'bg-blue-600 text-white':'border-b'}`}>{t.home}</button>
+                  <button onClick={()=>{setTab('activities');setShowMobileNav(false);}} className={`px-3 py-2 text-left ${tab==='activities'? 'bg-blue-600 text-white':'border-b'}`}>{t.activities}</button>
+                  <button onClick={()=>{setTab('contact');setShowMobileNav(false);}} className={`px-3 py-2 text-left ${tab==='contact'? 'bg-blue-600 text-white':'border-b'}`}>{t.contact}</button>
+                  <button onClick={()=>{setTab('howto');setShowMobileNav(false);}} className={`px-3 py-2 text-left ${tab==='howto'? 'bg-blue-600 text-white':'border-b'}`}>{t.howto}</button>
+                </div>
+              )}
+            </div>
             <button onClick={()=>setLang(l=>l==='es'?'en':'es')} className="px-3 py-1 border rounded">{t.selectLang}</button>
           </div>
         </header>
@@ -426,7 +443,18 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
                                              // d is 'YYYY-MM-DD'
                                              if(!start){ setStart(d); setEnd(''); return; }
                                              if(start && !end){
-                                               if(d >= start){ setEnd(d); return; }
+                                               if(d >= start){
+                                                 setEnd(d);
+                                                 // If selected end date is outside the two visible months, advance calendar
+                                                 const endDateObj = new Date(d);
+                                                 const baseMonth = calendarBase.getMonth();
+                                                 const baseYear = calendarBase.getFullYear();
+                                                 // If endDate is after the last visible month
+                                                 if (endDateObj.getFullYear() > baseYear || (endDateObj.getFullYear() === baseYear && endDateObj.getMonth() > baseMonth+1)) {
+                                                   setCalendarBase(new Date(endDateObj.getFullYear(), endDateObj.getMonth()-1, 1));
+                                                 }
+                                                 return;
+                                               }
                                                // clicked before start -> make it the new start
                                                setStart(d); setEnd(''); return;
                                              }
