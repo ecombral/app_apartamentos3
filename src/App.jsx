@@ -14,7 +14,7 @@ README (short):
 Notes: The app fetches the CSV on load and every 60s (configurable). The homepage cards now include a small photo carousel; detailed view hides images as requested. The calendar always shows numerical prices when present.
 */
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import useGoogleSheet from "./components/useGoogleSheet";
 
 // ---- CONFIG ----
@@ -193,6 +193,9 @@ export default function AppRent() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  // touch refs for swipe gestures
+  const touchStartXApt = useRef(null);
+  const touchStartXLightbox = useRef(null);
 
   function openLightbox(images, index = 0){
     setLightboxImages(images);
@@ -527,7 +530,32 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
                 </div>
 
                 <div>
-                  {/* Right column left for future info or photos */}
+                  {/* Gallery: main image, prev/next and thumbnails */}
+                  {selectedApt && (()=>{
+                    const apt = apartmentByKey(selectedApt);
+                    const imgs = buildImagesForApartment(apt);
+                    const idx = photoIndexByApt[selectedApt] || 0;
+                    return (
+                      <div>
+                        <div className="relative h-64 w-full overflow-hidden rounded mb-2 bg-gray-100"
+                             onTouchStart={e=>{ touchStartXApt.current = e.touches && e.touches[0] ? e.touches[0].clientX : null; }}
+                             onTouchEnd={e=>{ const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : null; const startX = touchStartXApt.current || 0; const delta = endX - startX; touchStartXApt.current = null; if (delta < -40) nextImageForApt(selectedApt); else if (delta > 40) prevImageForApt(selectedApt); }}>
+                          <img src={imgs[idx] || apt.img} alt={apt.title_es} className="h-full w-full object-cover cursor-pointer" onClick={()=>openLightbox(imgs, idx)} />
+                          <button onClick={()=>prevImageForApt(selectedApt)} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded">‹</button>
+                          <button onClick={()=>nextImageForApt(selectedApt)} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-1 rounded">›</button>
+                          <div className="absolute right-2 top-2 bg-black/60 text-white text-xs px-2 py-1 rounded">{idx+1} / {imgs.length}</div>
+                        </div>
+
+                        <div className="flex gap-2 overflow-x-auto">
+                          {imgs.map((s,i)=> (
+                            <button key={i} onClick={()=>setPhotoIndexByApt(p=>({...p,[selectedApt]:i}))} className={`flex-shrink-0 w-20 h-12 overflow-hidden rounded ${i===idx? 'ring-2 ring-blue-400':''}`}>
+                              <img src={s} alt={`thumb-${i}`} className="w-full h-full object-cover" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             </section>
@@ -539,11 +567,14 @@ ${t.priceTotal}: ${total ?? 'N/A'}`;
 
         {lightboxOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" onClick={closeLightbox}>
-            <div className="relative max-w-4xl w-full mx-4" onClick={e=>e.stopPropagation()}>
+            <div className="relative max-w-4xl w-full mx-4" onClick={e=>e.stopPropagation()}
+                 onTouchStart={e=>{ touchStartXLightbox.current = e.touches && e.touches[0] ? e.touches[0].clientX : null; }}
+                 onTouchEnd={e=>{ const endX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : null; const startX = touchStartXLightbox.current || 0; const delta = endX - startX; touchStartXLightbox.current = null; if (delta < -40) nextLightbox(); else if (delta > 40) prevLightbox(); }}>
               <button onClick={closeLightbox} className="absolute right-2 top-2 z-50 bg-white/80 rounded-full p-2">✕</button>
               <button onClick={prevLightbox} className="absolute left-2 top-1/2 -translate-y-1/2 z-50 bg-white/80 rounded-full p-2">‹</button>
               <button onClick={nextLightbox} className="absolute right-12 top-1/2 -translate-y-1/2 z-50 bg-white/80 rounded-full p-2">›</button>
               <img src={lightboxImages[lightboxIndex]} alt="preview" className="w-full h-[70vh] object-contain rounded shadow-lg bg-white" />
+              <div className="absolute right-4 top-4 bg-black/60 text-white text-sm px-2 py-1 rounded z-50">{lightboxIndex+1} / {lightboxImages.length}</div>
               <div className="text-center text-sm text-white mt-2">{lightboxIndex+1} / {lightboxImages.length}</div>
             </div>
           </div>
