@@ -619,8 +619,8 @@ function CalendarMonth({ monthOffset=0, apartmentKey, availability, lang, baseDa
 
           return (
             <button key={i} onClick={()=>onDayClick && onDayClick(key)} className={`h-14 p-1 border rounded text-xs flex flex-col justify-between text-left ${bgClass}`}>
-              <div className="text-right pr-1">{c.getDate()}</div>
-              <div className="text-center w-full">{priceText}</div>
+              <div className="text-right pr-1 text-gray-700">{c.getDate()}</div>
+              <div className="text-center w-full text-black font-semibold">{priceText}</div>
             </button>
           );
         })}
