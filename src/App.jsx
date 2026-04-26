@@ -36,11 +36,11 @@ const APARTMENTS = [
     photoCount: 3,
     short_es: "Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.",
     short_en: "Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.",
-    short_eu: "Apartamentu zabala, Europako Mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.",
+    short_eu: "Apartamentu zabala, Picos de Europa mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.",
     short_ca: "Apartament espaiós, amb maques vistes al massís central de Picos. Dues habitacions i opció de golfes per a nens.",
     long_es: `Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.`,
     long_en: `Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.`,
-    long_eu: `Apartamentu zabala, Europako Mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.`,
+    long_eu: `Apartamentu zabala, Picos de Europa mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.`,
     long_ca: `Apartament espaiós, amb maques vistes al massís central de Picos. Dues habitacions i opció de golfes per a nens.`
   },
   {
@@ -808,7 +808,7 @@ function HowTo({ lang, t }) {
   : lang === 'ca'
   ? `Només es pot arribar amb vehicle propi. Sortir de la A-8 a l'estació de servei "Aldea de Bricia", passar Posada de Llanes en direcció a Picos de Europa, i passat Vibaño seguir les indicacions de l'Hotel Montaña Mágica. A la pujada, després de deixar la primera casa (no quadra) a mà esquerra, cal agafar un petit camí a mà dreta per accedir al barri de "El Combral". Estem treballant per millorar l'accés, però de moment l'estat d'aquest camí no és gaire bo i és estret.`
   : lang === 'eu'
-  ? `Ibilgailu propioarekin bakarrik irits daiteke. A-8tik irten "Aldea de Bricia" zerbitzugunean, Posada de Llanes igaro Europako Mendietarantz, eta Vibaño igarota Hotel Montaña Mágica-ren seinaleak jarraitu. Igoeran, ezkerrean dagoen lehen etxea (ez ukuilua) pasatu ondoren, eskuinera doan bide txiki bat hartu behar da "El Combral" auzora sartzeko. Sarbidea hobetzen ari gara, baina oraingoz bide horren egoera ez da oso ona eta estua da.`
+  ? `Ibilgailu propioarekin bakarrik irits daiteke. A-8tik irten "Aldea de Bricia" zerbitzugunean, Posada de Llanes igaro Picos de Europa mendietarantz, eta Vibaño igarota Hotel Montaña Mágica-ren seinaleak jarraitu. Igoeran, ezkerrean dagoen lehen etxea (ez ukuilua) pasatu ondoren, eskuinera doan bide txiki bat hartu behar da "El Combral" auzora sartzeko. Sarbidea hobetzen ari gara, baina oraingoz bide horren egoera ez da oso ona eta estua da.`
   : `Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.`}
             </p>
             <a href="https://maps.app.goo.gl/XstKfGvLaXM4cpyM8" target="_blank" rel="noreferrer" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition">
