@@ -17,13 +17,13 @@ const APARTMENTS = [
     img: "/images/camion0.jpg",
     photoCount: 3,
     short_es: "Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas",
-    short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Txikitin, for two people",
-    short_eu: "Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikitin, bi pertsonentzat.",
-    short_ca: "Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Txikitin, per a dues persones.",
+    short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people",
+    short_eu: "Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikia, bi pertsonentzat.",
+    short_ca: "Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Petit, per a dues persones.",
     long_es: `Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas`,
-    long_en: `An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Txikitin, for two people`,
-    long_eu: `Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikitin, bi pertsonentzat.`,
-    long_ca: `Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Txikitin, per a dues persones.`
+    long_en: `An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people`,
+    long_eu: `Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikia, bi pertsonentzat.`,
+    long_ca: `Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Petit, per a dues persones.`
   },
   {
     id: "apartamento",
@@ -219,6 +219,21 @@ const TEXT = {
 };
 
 // ---- UTILS ----
+const BasqueFlag = ({className}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" className={className}>
+    <path fill="#009b48" d="M0 0h1000v700H0z"/>
+    <path fill="#fff" d="M0 0l1000 700M0 700L1000 0" stroke="#fff" strokeWidth="87.5"/>
+    <path fill="#e10019" d="M437.5 0h125v700h-125zM0 287.5h1000v125H0z"/>
+  </svg>
+);
+
+const CatalanFlag = ({className}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" className={className}>
+    <rect width="900" height="600" fill="#fcd116"/>
+    <path d="M0 66.6h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0z" fill="#ce1126"/>
+  </svg>
+);
+
 function formatDate(d) {
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -328,8 +343,8 @@ export default function AppRent() {
             <div className="ml-4 flex items-center gap-3">
               <button onClick={() => setLang('es')} className={`text-xl transition-transform ${lang === 'es' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Español">🇪🇸</button>
               <button onClick={() => setLang('en')} className={`text-xl transition-transform ${lang === 'en' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="English">🇬🇧</button>
-              <button onClick={() => setLang('eu')} className={`transition-transform ${lang === 'eu' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Euskera"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Flag_of_the_Basque_Country.svg" className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" alt="EU" /></button>
-              <button onClick={() => setLang('ca')} className={`transition-transform ${lang === 'ca' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Català"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg" className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" alt="CA" /></button>
+              <button onClick={() => setLang('eu')} className={`transition-transform ${lang === 'eu' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Euskera"><BasqueFlag className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" /></button>
+              <button onClick={() => setLang('ca')} className={`transition-transform ${lang === 'ca' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Català"><CatalanFlag className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" /></button>
             </div>
           </nav>
 
@@ -355,8 +370,8 @@ export default function AppRent() {
               <span className="text-sm font-semibold text-slate-500">Idioma:</span>
               <button onClick={() => { setLang('es'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'es' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇪🇸</button>
               <button onClick={() => { setLang('en'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'en' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇬🇧</button>
-              <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'eu' ? 'scale-110 opacity-100' : 'opacity-50'}`}><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Flag_of_the_Basque_Country.svg" className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" alt="EU" /></button>
-              <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'ca' ? 'scale-110 opacity-100' : 'opacity-50'}`}><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg" className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" alt="CA" /></button>
+              <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'eu' ? 'scale-110 opacity-100' : 'opacity-50'}`}><BasqueFlag className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" /></button>
+              <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'ca' ? 'scale-110 opacity-100' : 'opacity-50'}`}><CatalanFlag className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" /></button>
             </div>
           </div>
         )}
