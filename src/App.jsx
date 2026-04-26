@@ -221,9 +221,9 @@ const TEXT = {
 // ---- UTILS ----
 const BasqueFlag = ({className}) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" className={className}>
-    <path fill="#009b48" d="M0 0h1000v700H0z"/>
-    <path fill="#fff" d="M0 0l1000 700M0 700L1000 0" stroke="#fff" strokeWidth="87.5"/>
-    <path fill="#e10019" d="M437.5 0h125v700h-125zM0 287.5h1000v125H0z"/>
+    <path fill="#e10019" d="M0 0h1000v700H0z"/>
+    <path fill="#009b48" d="M0 0l1000 700M0 700L1000 0" stroke="#009b48" strokeWidth="87.5"/>
+    <path fill="#fff" d="M437.5 0h125v700h-125zM0 287.5h1000v125H0z"/>
   </svg>
 );
 
