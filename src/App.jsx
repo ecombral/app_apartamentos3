@@ -241,9 +241,10 @@ export default function AppRent() {
                 {t[key]}
               </button>
             ))}
-            <button onClick={() => setLang(l => l === 'es' ? 'en' : 'es')} className="ml-4 px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-bold transition">
-              {lang.toUpperCase()}
-            </button>
+            <div className="ml-4 flex items-center gap-3">
+              <button onClick={() => setLang('es')} className={`text-xl transition-transform ${lang === 'es' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Español">🇪🇸</button>
+              <button onClick={() => setLang('en')} className={`text-xl transition-transform ${lang === 'en' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="English">🇬🇧</button>
+            </div>
           </nav>
 
           {/* Mobile Toggle */}
@@ -264,9 +265,11 @@ export default function AppRent() {
                 {t[key]}
               </button>
             ))}
-            <button onClick={() => { setLang(l => l === 'es' ? 'en' : 'es'); setMobileMenuOpen(false); }} className="text-left text-sm font-bold text-slate-500">
-              Cambiar indiona / Switch Language ({lang.toUpperCase()})
-            </button>
+            <div className="flex items-center gap-6 pt-2 mt-2 border-t border-slate-100">
+              <span className="text-sm font-semibold text-slate-500">Idioma / Language:</span>
+              <button onClick={() => { setLang('es'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'es' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇪🇸</button>
+              <button onClick={() => { setLang('en'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'en' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇬🇧</button>
+            </div>
           </div>
         )}
       </header>
@@ -315,9 +318,6 @@ function Home({ lang, t, onSelect, loading }) {
           <h1 className="text-4xl md:text-6xl font-bold mb-8 text-shadow-lg leading-tight">
             {lang === 'es' ? 'El Combral, mar y montaña.' : 'El Combral, sea and mountain.'}
           </h1>
-          <button onClick={() => document.getElementById('apartments').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3 bg-white text-slate-900 rounded-full font-semibold hover:bg-blue-50 transition shadow-lg">
-            {t.checkAvailability}
-          </button>
         </div>
       </section>
 
