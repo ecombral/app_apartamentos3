@@ -14,10 +14,10 @@ const APARTMENTS = [
     title_en: "El Camión",
     img: "/images/camion0.jpg",
     photoCount: 3,
-    short_es: "Cabaña de cedro y cristal entre montaña y mar.",
-    short_en: "Cedar and glass cabin between mountain and sea.",
-    long_es: `Situada en un acantilado, esta pequeña cabaña de cedro y cristal equilibra la montaña y el mar. Picos de granito se alzan detrás; el océano se extiende delante. Dentro, esperan una acogedora estufa de leña y una cama alta. Explora senderos de montaña y pozas de marea.`,
-    long_en: `Nestled on a bluff, this cedar and glass tiny lodge balances the mountains and sea. Granite peaks rise behind it; the ocean stretches before it. Inside, a cozy wood stove and loft bed await.`
+    short_es: "Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas",
+    short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Txikitin, for two people",
+    long_es: `Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas`,
+    long_en: `An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Txikitin, for two people`
   },
   {
     id: "apartamento",
@@ -26,10 +26,10 @@ const APARTMENTS = [
     title_en: "The Apartment",
     img: "/images/apartamento0.jpg",
     photoCount: 3,
-    short_es: "Céntrico, luminoso y con todas las comodidades.",
-    short_en: "Central, bright, and fully equipped.",
-    long_es: `Apartamento céntrico, luminoso y con todas las comodidades para estancias urbanas. Espacio para 4 personas, cocina completa y transporte cercano. Ideal para disfrutar de la ciudad con total confort.`,
-    long_en: `Central, bright apartment with all comforts for urban stays. Space for 4 guests, full kitchen and nearby transport. Ideal for enjoying the city in total comfort.`
+    short_es: "Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.",
+    short_en: "Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.",
+    long_es: `Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.`,
+    long_en: `Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.`
   },
   {
     id: "aula",
@@ -46,35 +46,48 @@ const APARTMENTS = [
   },
 ];
 
-const CARS = [
-  {
-    id: "corolla",
-    key: "Toyota Corolla",
-    title_es: "Toyota Corolla Económico",
-    title_en: "Budget Toyota Corolla",
-    img: "/images/corolla0.jpg",
-    photoCount: 3,
-    short_es: "Toyota Corolla antiguo, fiable y sin preocupaciones.",
-    short_en: "Old, reliable Toyota Corolla, worry-free rental.",
-    long_es: `Un Toyota Corolla clásico que nunca falla. Es ideal para quienes buscan algo económico y funcional. No te preocupes por pequeños arañazos o daños cosméticos; este coche está hecho para disfrutar de la isla sin estrés.`,
-    long_en: `A classic Toyota Corolla that never fails. Ideal for those looking for something budget-friendly and functional. Don't worry about minor scratches or cosmetic damage; this car is meant for enjoying the island stress-free.`
-  }
-];
-
 const ACTIVITIES = [
-  { id: 'surf', title_es: 'Clases de surf', title_en: 'Surf lessons', desc_es: 'Aprende a surfear en las mejores playas de la zona.', desc_en: 'Learn to surf at the best local beaches.' },
-  { id: 'kayak', title_es: 'Rutas en Kayak', title_en: 'Kayak Tours', desc_es: 'Descubre la costa desde el mar con guías expertos.', desc_en: 'Discover the coast from the sea with expert guides.' },
-  { id: 'gastronomia', title_es: 'Gastronomía Local', title_en: 'Local Gastronomy', desc_es: 'Disfruta de los sabores auténticos de la región.', desc_en: 'Enjoy the authentic flavors of the region.' },
+  {
+    id: 'playa',
+    title_es: 'El Mar y la Playa',
+    title_en: 'Sea and Beach',
+    desc_es: 'Snorkel, stand-up paddle y surf; pídenos consejo para saber dónde ir y cuándo.',
+    desc_en: 'Snorkeling, stand-up paddle, and surfing; ask us for advice on where and when to go.',
+    companies: ['Escuela Asturiana de Surf', 'Llanes Surf & Aventura']
+  },
+  {
+    id: 'montana',
+    title_es: 'Montaña y Picos',
+    title_en: 'Mountains and Peaks',
+    desc_es: 'Paseos, trekking, escalada y bajada de cañones en plena naturaleza.',
+    desc_en: 'Walking, trekking, climbing, and canyoning surrounded by nature.',
+    companies: ['Frontera Verde', 'Montañas del Norte']
+  },
+  {
+    id: 'caballos',
+    title_es: 'Paseos a Caballo',
+    title_en: 'Horseback Riding',
+    desc_es: 'Descubre los paisajes a caballo. Recomendamos especialmente a nuestros amigos de "El Bosque", gente maravillosa que organiza paseos por la zona.',
+    desc_en: 'Discover the landscapes on horseback. We highly recommend our friends from "El Bosque", wonderful people who organize rides in the area.',
+    companies: ['El Bosque']
+  },
+  {
+    id: 'rios',
+    title_es: 'Ríos: Kayak y Rafting',
+    title_en: 'Rivers: Kayak & Rafting',
+    desc_es: 'Bajada de ríos en kayak (Descenso del Sella o Deva) y emocionantes rutas de rafting.',
+    desc_en: 'River descent in kayaks (Descenso del Sella or Deva) and thrilling rafting routes.',
+    companies: ['K-2 Aventura', 'Los Cauces MultiAventura', 'Jaire Aventura']
+  }
 ];
 
 const TEXT = {
   es: {
-    appTitle: "Apartamentos Rental",
+    appTitle: "El Combral, mar y montaña.",
     home: "Inicio",
     activities: "Actividades",
     contact: "Contacto",
     howto: "Cómo llegar",
-    car: "Alquiler de Coche",
     checkAvailability: "Ver Disponibilidad",
     bookNow: "Reservar Ahora",
     night: "noche",
@@ -91,16 +104,15 @@ const TEXT = {
     gallery: "Galería",
     contactIntro: "Estamos aquí para ayudarte. Contáctanos por WhatsApp o correo.",
     send: "Enviar Mensaje",
-    footer: "© 2026 Apartamentos Rental. Todos los derechos reservados.",
+    footer: "© 2026 El Combral, mar y montaña. Todos los derechos reservados.",
     underRenovation: "No disponible actualmente - en reformas"
   },
   en: {
-    appTitle: "Apartment Rentals",
+    appTitle: "El Combral, sea and mountain.",
     home: "Home",
     activities: "Activities",
     contact: "Contact",
     howto: "Location",
-    car: "Rental Car",
     checkAvailability: "Check Availability",
     bookNow: "Book Now",
     night: "night",
@@ -117,14 +129,17 @@ const TEXT = {
     gallery: "Gallery",
     contactIntro: "We are here to help. Contact us via WhatsApp or email.",
     send: "Send Message",
-    footer: "© 2026 Apartment Rentals. All rights reserved.",
+    footer: "© 2026 El Combral, sea and mountain. All rights reserved.",
     underRenovation: "Currently unavailable - under renovation"
   }
 };
 
 // ---- UTILS ----
 function formatDate(d) {
-  return d.toISOString().split('T')[0];
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 function dateRange(start, end) {
@@ -154,7 +169,7 @@ export default function AppRent() {
   // Fetch Data (Google Sheets via PapaParse)
   useEffect(() => {
     function fetchData() {
-      Papa.parse(SHEET_CSV_URL, {
+      Papa.parse(`${SHEET_CSV_URL}&_t=${Date.now()}`, {
         download: true,
         header: true,
         complete: (results) => {
@@ -176,15 +191,22 @@ export default function AppRent() {
   const availability = useMemo(() => {
     const map = {};
     APARTMENTS.forEach(a => map[a.key] = {});
-    CARS.forEach(c => map[c.key] = {});
     sheetData.forEach(row => {
-      // row: date, apartment, price, available
-      const aptKey = row.apartment;
+      if (!row.apartment || !row.date) return;
+      const aptKey = String(row.apartment).trim();
+      const rowDate = String(row.date).trim();
+      
       if (map[aptKey]) {
         const price = parseFloat(row.price);
-        map[aptKey][row.date] = {
+        let available = false;
+        if (row.available) {
+          const val = String(row.available).trim().toUpperCase();
+          available = val === 'TRUE';
+        }
+
+        map[aptKey][rowDate] = {
           price: isNaN(price) ? null : price,
-          available: row.available === 'true' || row.available === 'TRUE' || row.available === true
+          available: available
         };
       }
     });
@@ -196,21 +218,6 @@ export default function AppRent() {
     if (tab === 'activities') return <Activities lang={lang} t={t} />;
     if (tab === 'contact') return <Contact lang={lang} t={t} />;
     if (tab === 'howto') return <HowTo lang={lang} t={t} />;
-    if (tab === 'car') {
-      const corolla = CARS[0];
-      return (
-        <div className="animate-fade-in">
-          <ApartmentDetail 
-            apartmentId={corolla.id} 
-            lang={lang} 
-            t={t} 
-            availability={availability[corolla.key]} 
-            onClose={() => setTab('home')} 
-            isCar={true}
-          />
-        </div>
-      );
-    }
     return <Home lang={lang} t={t} availability={availability} onSelect={setSelectedApt} loading={loading} />;
   };
 
@@ -225,7 +232,7 @@ export default function AppRent() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {['home', 'car', 'activities', 'contact', 'howto'].map(key => (
+            {['home', 'activities', 'contact', 'howto'].map(key => (
               <button
                 key={key}
                 onClick={() => { setTab(key); setSelectedApt(null); }}
@@ -248,7 +255,7 @@ export default function AppRent() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-b absolute w-full px-6 py-4 flex flex-col gap-4 shadow-lg animate-fade-in">
-            {['home', 'car', 'activities', 'contact', 'howto'].map(key => (
+            {['home', 'activities', 'contact', 'howto'].map(key => (
               <button
                 key={key}
                 onClick={() => { setTab(key); setSelectedApt(null); setMobileMenuOpen(false); }}
@@ -305,12 +312,9 @@ function Home({ lang, t, onSelect, loading }) {
         <div className="absolute inset-0 bg-black/40 z-10"></div>
         <img src="/images/imagenfondo.jpg" alt="Hero" className="absolute inset-0 w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite] transform transition-transform duration-[20s] hover:scale-110" style={{ animation: 'none' }} />
         <div className="relative z-20 text-center px-4 max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-shadow-lg leading-tight">
-            {lang === 'es' ? 'Escápate a la Naturaleza' : 'Escape to Nature'}
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-shadow-lg leading-tight">
+            {lang === 'es' ? 'El Combral, mar y montaña.' : 'El Combral, sea and mountain.'}
           </h1>
-          <p className="text-lg md:text-xl font-light text-shadow opacity-90 mb-8">
-            {lang === 'es' ? 'Descansa, relájate y reconecta.' : 'Rest, relax, and reconnect.'}
-          </p>
           <button onClick={() => document.getElementById('apartments').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3 bg-white text-slate-900 rounded-full font-semibold hover:bg-blue-50 transition shadow-lg">
             {t.checkAvailability}
           </button>
@@ -329,18 +333,18 @@ function Home({ lang, t, onSelect, loading }) {
             const images = buildImagesForApartment(apt);
             const currentIdx = photoIndices[apt.id];
             return (
-              <div key={apt.id} className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${idx === 1 ? 'delay-100' : idx === 2 ? 'delay-200' : ''}`}>
+              <div key={apt.id} onClick={() => !apt.isUnavailable && onSelect(apt.id)} className={`group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${idx === 1 ? 'delay-100' : idx === 2 ? 'delay-200' : ''}`}>
                 <div className="relative h-64 overflow-hidden">
                   <img src={images[currentIdx] || apt.img} alt={apt.title_es} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
                   {/* Carousel Arrows on Home Card */}
                   {apt.photoCount > 1 && (
                     <>
-                      <button onClick={(e) => prevPhoto(apt.id, apt.photoCount, e)} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 p-2 rounded-full transition-colors z-20">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+                      <button onClick={(e) => prevPhoto(apt.id, apt.photoCount, e)} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 p-3 rounded-full transition-colors z-30 cursor-pointer shadow-md">
+                        <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
                       </button>
-                      <button onClick={(e) => nextPhoto(apt.id, apt.photoCount, e)} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 p-2 rounded-full transition-colors z-20">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                      <button onClick={(e) => nextPhoto(apt.id, apt.photoCount, e)} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white/90 p-3 rounded-full transition-colors z-30 cursor-pointer shadow-md">
+                        <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                       </button>
                     </>
                   )}
@@ -351,11 +355,7 @@ function Home({ lang, t, onSelect, loading }) {
                     </div>
                   )}
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 z-10">
-                    <button onClick={() => !apt.isUnavailable && onSelect(apt.id)} className={`w-full py-2 bg-white text-slate-900 font-medium rounded-lg shadow ${apt.isUnavailable ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                      {t.bookNow}
-                    </button>
-                  </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10 pointer-events-none"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-slate-800">{lang === 'es' ? apt.title_es : apt.title_en}</h3>
@@ -378,13 +378,13 @@ function Home({ lang, t, onSelect, loading }) {
   );
 }
 
-function ApartmentDetail({ apartmentId, lang, t, availability, onClose, isCar = false }) {
-  const apt = isCar ? CARS.find(c => c.id === apartmentId) : APARTMENTS.find(a => a.id === apartmentId);
+function ApartmentDetail({ apartmentId, lang, t, availability, onClose }) {
+  const apt = APARTMENTS.find(a => a.id === apartmentId);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [name, setName] = useState('');
   const [guests, setGuests] = useState(2);
-  const [calendarBase, setCalendarBase] = useState(() => new Date(2026, 0, 1)); // Start at Jan 2026 by default for this task
+  const [calendarBase, setCalendarBase] = useState(() => new Date()); // Start at current month
   const [activeImgIndex, setActiveImgIndex] = useState(0);
 
   if (!apt) return null;
@@ -412,8 +412,12 @@ function ApartmentDetail({ apartmentId, lang, t, availability, onClose, isCar = 
 ${lang === 'es' ? 'Fechas' : 'Dates'}: ${start} -> ${end}
 ${t.guests}: ${guests}
 ${lang === 'es' ? 'Nombre' : 'Name'}: ${name}
-${t.priceTotal}: ${totalPrice}€
-${isCar ? (lang === 'es' ? 'Solicitud de Alquiler de Coche' : 'Car Rental Request') : ''}`;
+${t.priceTotal}: ${totalPrice}€`;
+    window.open(`https://wa.me/34611044315?text=${encodeURIComponent(msg)}`, '_blank');
+  };
+
+  const handleContactFirst = () => {
+    const msg = `${lang === 'es' ? 'Hola, tengo una duda antes de reservar' : 'Hello, I have a question before booking'}: *${lang === 'es' ? apt.title_es : apt.title_en}*`;
     window.open(`https://wa.me/34611044315?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -483,7 +487,7 @@ ${isCar ? (lang === 'es' ? 'Solicitud de Alquiler de Coche' : 'Car Rental Reques
               </div>
             ) : (
               <>
-                <h2 className="text-xl font-bold mb-4 border-b pb-2">{t.bookNow} (2026)</h2>
+                <h2 className="text-xl font-bold mb-4 border-b pb-2">{t.bookNow}</h2>
 
                 {/* Calendar Controls */}
                 <div className="flex justify-between items-center mb-4 bg-slate-50 p-2 rounded-lg">
@@ -537,6 +541,13 @@ ${isCar ? (lang === 'es' ? 'Solicitud de Alquiler de Coche' : 'Car Rental Reques
                   >
                     {t.sendWhatsApp}
                   </button>
+                  <button
+                    onClick={handleContactFirst}
+                    className="w-full py-3 mt-3 rounded-xl font-bold text-md border-2 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                    {lang === 'es' ? 'Consultar antes de reservar' : 'Ask before booking'}
+                  </button>
                 </div>
               </>
             )}
@@ -571,9 +582,7 @@ function CalendarMonth({ baseDate, availability, start, end, onSelect }) {
 
         let bg = 'bg-slate-50 text-slate-300'; // Default unavailable/unknown
         if (isAvail) {
-          if (price < 90) bg = 'bg-green-50 text-green-700 hover:bg-green-100'; // Low
-          else if (price < 130) bg = 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'; // Mid
-          else bg = 'bg-orange-50 text-orange-700 hover:bg-orange-100'; // High
+          bg = 'bg-green-50 text-green-700 hover:bg-green-100'; // Available
         }
         if (inRange) bg = 'bg-blue-100 text-blue-800';
         if (isSelected) bg = 'bg-blue-600 text-white shadow-md transform scale-105 z-10';
@@ -596,17 +605,32 @@ function CalendarMonth({ baseDate, availability, start, end, onSelect }) {
 
 function Activities({ lang, t }) {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 animate-fade-in">
-      <h2 className="text-3xl font-bold mb-8 text-center">{t.activities}</h2>
-      <div className="grid gap-6">
-        {ACTIVITIES.map(a => (
-          <div key={a.id} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-start md:items-center gap-4 hover:shadow-md transition">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <div className="max-w-3xl mx-auto px-6 py-16 animate-fade-in">
+      <h2 className="text-4xl md:text-5xl font-light mb-12 text-slate-800 tracking-tight border-b pb-4">{t.activities}</h2>
+      <div className="space-y-12">
+        {ACTIVITIES.map((a, i) => (
+          <div key={a.id} className="flex flex-col md:flex-row gap-4 md:gap-12 group">
+            <div className="md:w-1/3">
+              <h3 className="text-2xl font-semibold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors">
+                {lang === 'es' ? a.title_es : a.title_en}
+              </h3>
             </div>
-            <div>
-              <h3 className="text-xl font-semibold text-slate-800">{lang === 'es' ? a.title_es : a.title_en}</h3>
-              <p className="text-slate-600">{lang === 'es' ? a.desc_es : a.desc_en}</p>
+            <div className="md:w-2/3">
+              <p className="text-lg text-slate-600 font-light mb-4 leading-relaxed">
+                {lang === 'es' ? a.desc_es : a.desc_en}
+              </p>
+              {a.companies && a.companies.length > 0 && (
+                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <span className="block mb-2">{lang === 'es' ? 'Empresas recomendadas:' : 'Recommended companies:'}</span>
+                  <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                    {a.companies.map(c => (
+                      <li key={c} className="text-blue-600 hover:text-blue-800 transition-colors cursor-pointer">
+                        &rarr; {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -647,26 +671,29 @@ function HowTo({ lang, t }) {
       <h2 className="text-3xl font-bold mb-8 text-center">{t.howto}</h2>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h3 className="font-bold text-lg mb-2">🚗 {lang === 'es' ? 'En Coche' : 'By Car'}</h3>
-            <p className="text-slate-600 text-sm">
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
+            <h3 className="font-bold text-xl mb-4 text-slate-800">🚗 {lang === 'es' ? 'Acceso en vehículo propio' : 'Access by private vehicle'}</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">
               {lang === 'es'
-                ? 'Sigue la autovía A-8 hasta la salida 285. Toma la carretera comarcal AS-263 y sigue las indicaciones hacia la costa. Disponemos de aparcamiento gratuito.'
-                : 'Follow the A-8 motorway to exit 285. Take the AS-263 road and follow signs to the coast. Free parking available.'}
+                ? 'Solo se puede llegar en vehículo propio. Salir de la A-8 en la estación de servicio "Aldea de Bricia", pasar Posada de Llanes en dirección a Picos de Europa, y pasado Vibaño seguir las indicaciones del Hotel Montaña Mágica. En la subida, tras dejar la primera casa (no cuadra) a mano izquierda, hay que coger un pequeño camino a mano derecha para acceder al barrio de "El Combral". Estamos trabajando en mejorar el acceso, pero por el momento el estado de este camino no es muy bueno y es estrecho.'
+                : 'Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.'}
             </p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h3 className="font-bold text-lg mb-2">🚌 {lang === 'es' ? 'Transporte Público' : 'Public Transport'}</h3>
-            <p className="text-slate-600 text-sm">
-              {lang === 'es'
-                ? 'Autobuses ALSA con parada en el pueblo cada 2 horas (Línea Llanes-Ribadesella).'
-                : 'ALSA buses stop in the village every 2 hours (Llanes-Ribadesella line).'}
-            </p>
+            <a href="https://maps.app.goo.gl/XstKfGvLaXM4cpyM8" target="_blank" rel="noreferrer" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              {lang === 'es' ? 'Abrir ubicación exacta en Google Maps' : 'Open exact location on Google Maps'}
+            </a>
           </div>
         </div>
-        <div className="bg-slate-200 rounded-xl h-64 md:h-auto flex items-center justify-center text-slate-500 font-medium">
-          {/* Placeholder for map */}
-          Google Maps Embed
+        <div className="bg-slate-200 rounded-xl overflow-hidden min-h-[300px] md:h-auto relative shadow-sm border border-slate-100">
+          <iframe 
+            src="https://maps.google.com/maps?q=Hotel+Montaña+Magica,+Llanes&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+            className="absolute inset-0 w-full h-full"
+            frameBorder="0" 
+            style={{ border: 0 }} 
+            allowFullScreen="" 
+            aria-hidden="false" 
+            tabIndex="0">
+          </iframe>
         </div>
       </div>
     </div>
