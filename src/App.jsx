@@ -487,20 +487,30 @@ function ApartmentDetail({ apartmentId, lang, t, availability, onClose }) {
       if (!info || info.price === null) return null;
       total += info.price;
     }
-    return total;
+    const numDays = days.length;
+    let discount = 0;
+    if (numDays >= 15) discount = 0.20;
+    else if (numDays >= 8) discount = 0.10;
+    
+    return {
+      numDays,
+      originalTotal: total,
+      finalTotal: Math.round(total * (1 - discount)),
+      discountPercent: discount * 100
+    };
   };
 
-  const totalPrice = calcTotal();
-  const validDates = start && end && totalPrice !== null;
+  const priceInfo = calcTotal();
+  const validDates = start && end && priceInfo !== null && priceInfo.numDays >= 4;
 
   const handleWhatsApp = () => {
     if (!validDates) return;
-    const msg = `${lang === 'es' ? 'Hola, quiero reservar' : 'Hello, I want to book'}:
+    const msg = `${lang === 'es' ? 'Hola, quiero reservar' : lang === 'ca' ? 'Hola, vull reservar' : lang === 'eu' ? 'Kaixo, erreserbatu nahi dut' : 'Hello, I want to book'}:
 *${apt['title_' + lang]}*
-${lang === 'es' ? 'Fechas' : 'Dates'}: ${start} -> ${end}
+${lang === 'es' ? 'Fechas' : lang === 'ca' ? 'Dates' : lang === 'eu' ? 'Datak' : 'Dates'}: ${start} -> ${end} (${priceInfo.numDays} ${t.nights})
 ${t.guests}: ${guests}
-${lang === 'es' ? 'Nombre' : 'Name'}: ${name}
-${t.priceTotal}: ${totalPrice}€`;
+${lang === 'es' ? 'Nombre' : lang === 'ca' ? 'Nom' : lang === 'eu' ? 'Izena' : 'Name'}: ${name}
+${priceInfo.discountPercent > 0 ? `Descuento: ${priceInfo.discountPercent}%\n` : ''}${t.priceTotal}: ${priceInfo.finalTotal}€`;
     window.open(`https://wa.me/34611044315?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -577,6 +587,15 @@ ${t.priceTotal}: ${totalPrice}€`;
               <>
                 <h2 className="text-xl font-bold mb-4 border-b pb-2">{t.bookNow}</h2>
 
+                {/* Discount Info Banner */}
+                <div className="mb-4 text-sm text-slate-600 bg-blue-50 border border-blue-100 p-3 rounded-lg flex items-start gap-2">
+                  <svg className="w-5 h-5 text-blue-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <div>
+                    <span className="font-semibold">{lang === 'es' ? 'Estancia mínima 4 noches.' : lang === 'ca' ? 'Estada mínima 4 nits.' : lang === 'eu' ? 'Gutxienez 4 gau.' : 'Minimum stay 4 nights.'}</span><br />
+                    {lang === 'es' ? 'De 8 a 14 días: 10% descuento. 15 o más días: 20% descuento.' : lang === 'ca' ? 'De 8 a 14 dies: 10% descompte. 15 o més dies: 20% descompte.' : lang === 'eu' ? '8-14 egun: %10eko deskontua. 15 egun edo gehiago: %20ko deskontua.' : '8 to 14 days: 10% discount. 15 or more days: 20% discount.'}
+                  </div>
+                </div>
+
                 {/* Calendar Controls */}
                 <div className="flex justify-between items-center mb-4 bg-slate-50 p-2 rounded-lg">
                   <button onClick={() => setCalendarBase(d => new Date(d.getFullYear(), d.getMonth() - 1))} className="p-1 hover:bg-white rounded shadow-sm">◀</button>
@@ -619,7 +638,12 @@ ${t.priceTotal}: ${totalPrice}€`;
 
                   <div className="pt-4 border-t flex items-center justify-between">
                     <span className="text-slate-600 font-medium">{t.priceTotal}</span>
-                    <span className="text-2xl font-bold text-blue-900">{validDates ? `${totalPrice}€` : '—'}</span>
+                    <div className="text-right">
+                      {priceInfo && priceInfo.discountPercent > 0 && (
+                        <div className="text-sm text-green-600 font-bold mb-1">-{priceInfo.discountPercent}% OFF</div>
+                      )}
+                      <span className="text-2xl font-bold text-blue-900">{priceInfo ? `${priceInfo.finalTotal}€` : '—'}</span>
+                    </div>
                   </div>
 
                   <button
@@ -627,7 +651,9 @@ ${t.priceTotal}: ${totalPrice}€`;
                     disabled={!validDates}
                     className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all transform active:scale-95 ${validDates ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
                   >
-                    {t.sendWhatsApp}
+                    {priceInfo && priceInfo.numDays < 4 
+                      ? (lang === 'es' ? 'Mínimo 4 noches' : lang === 'ca' ? 'Mínim 4 nits' : lang === 'eu' ? 'Gutxienez 4 gau' : 'Minimum 4 nights')
+                      : t.sendWhatsApp}
                   </button>
                   <button
                     onClick={handleContactFirst}
