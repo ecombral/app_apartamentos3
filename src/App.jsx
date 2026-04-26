@@ -328,8 +328,8 @@ export default function AppRent() {
             <div className="ml-4 flex items-center gap-3">
               <button onClick={() => setLang('es')} className={`text-xl transition-transform ${lang === 'es' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Español">🇪🇸</button>
               <button onClick={() => setLang('en')} className={`text-xl transition-transform ${lang === 'en' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="English">🇬🇧</button>
-              <button onClick={() => setLang('eu')} className={`text-xl font-bold transition-transform ${lang === 'eu' ? 'scale-125 opacity-100 text-red-600 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110 text-slate-400'}`} title="Euskera">EU</button>
-              <button onClick={() => setLang('ca')} className={`text-xl font-bold transition-transform ${lang === 'ca' ? 'scale-125 opacity-100 text-yellow-500 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110 text-slate-400'}`} title="Català">CA</button>
+              <button onClick={() => setLang('eu')} className={`transition-transform ${lang === 'eu' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Euskera"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Flag_of_the_Basque_Country.svg" className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" alt="EU" /></button>
+              <button onClick={() => setLang('ca')} className={`transition-transform ${lang === 'ca' ? 'scale-125 opacity-100 drop-shadow-md' : 'opacity-50 hover:opacity-100 hover:scale-110'}`} title="Català"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg" className="w-6 h-4 object-cover rounded-sm shadow-sm inline-block" alt="CA" /></button>
             </div>
           </nav>
 
@@ -355,8 +355,8 @@ export default function AppRent() {
               <span className="text-sm font-semibold text-slate-500">Idioma:</span>
               <button onClick={() => { setLang('es'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'es' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇪🇸</button>
               <button onClick={() => { setLang('en'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'en' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇬🇧</button>
-              <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`text-2xl font-bold transition-transform ${lang === 'eu' ? 'scale-110 opacity-100 text-red-600' : 'opacity-50 text-slate-400'}`}>EU</button>
-              <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`text-2xl font-bold transition-transform ${lang === 'ca' ? 'scale-110 opacity-100 text-yellow-500' : 'opacity-50 text-slate-400'}`}>CA</button>
+              <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'eu' ? 'scale-110 opacity-100' : 'opacity-50'}`}><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Flag_of_the_Basque_Country.svg" className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" alt="EU" /></button>
+              <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'ca' ? 'scale-110 opacity-100' : 'opacity-50'}`}><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg" className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" alt="CA" /></button>
             </div>
           </div>
         )}
