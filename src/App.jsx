@@ -404,7 +404,7 @@ function Home({ lang, t, onSelect, loading }) {
         <img src="/images/imagenfondo.jpg" alt="Hero" className="absolute inset-0 w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite] transform transition-transform duration-[20s] hover:scale-110" style={{ animation: 'none' }} />
         <div className="relative z-20 text-center px-4 max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-8 text-shadow-lg leading-tight">
-            {lang === 'es' ? 'El Combral, mar y montaña.' : 'El Combral, sea and mountain.'}
+            {t.appTitle}
           </h1>
         </div>
       </section>
@@ -446,9 +446,9 @@ function Home({ lang, t, onSelect, loading }) {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10 pointer-events-none"></div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-slate-800">{lang === 'es' ? apt.title_es : apt.title_en}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-slate-800">{apt['title_' + lang]}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                    {lang === 'es' ? apt.short_es : apt.short_en}
+                    {apt['short_' + lang]}
                   </p>
                   <div className="flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wide">
                     <span>{apt.photoCount} Photos</span>
@@ -496,7 +496,7 @@ function ApartmentDetail({ apartmentId, lang, t, availability, onClose }) {
   const handleWhatsApp = () => {
     if (!validDates) return;
     const msg = `${lang === 'es' ? 'Hola, quiero reservar' : 'Hello, I want to book'}:
-*${lang === 'es' ? apt.title_es : apt.title_en}*
+*${apt['title_' + lang]}*
 ${lang === 'es' ? 'Fechas' : 'Dates'}: ${start} -> ${end}
 ${t.guests}: ${guests}
 ${lang === 'es' ? 'Nombre' : 'Name'}: ${name}
@@ -505,7 +505,7 @@ ${t.priceTotal}: ${totalPrice}€`;
   };
 
   const handleContactFirst = () => {
-    const msg = `${lang === 'es' ? 'Hola, tengo una duda antes de reservar' : 'Hello, I have a question before booking'}: *${lang === 'es' ? apt.title_es : apt.title_en}*`;
+    const msg = `${lang === 'es' ? 'Hola, tengo una duda antes de reservar' : 'Hello, I have a question before booking'}: *${apt['title_' + lang]}*`;
     window.open(`https://wa.me/34611044315?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -524,8 +524,8 @@ ${t.priceTotal}: ${totalPrice}€`;
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* LEFT: Info & Gallery */}
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">{lang === 'es' ? apt.title_es : apt.title_en}</h1>
-          <p className="text-slate-600 text-lg mb-6 leading-relaxed">{lang === 'es' ? apt.long_es : apt.long_en}</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">{apt['title_' + lang]}</h1>
+          <p className="text-slate-600 text-lg mb-6 leading-relaxed">{apt['long_' + lang]}</p>
 
           <div className="space-y-4">
             <div className="relative rounded-xl overflow-hidden shadow-md aspect-video group">
@@ -700,16 +700,16 @@ function Activities({ lang, t }) {
           <div key={a.id} className="flex flex-col md:flex-row gap-4 md:gap-12 group">
             <div className="md:w-1/3">
               <h3 className="text-2xl font-semibold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors">
-                {lang === 'es' ? a.title_es : a.title_en}
+                {a['title_' + lang]}
               </h3>
             </div>
             <div className="md:w-2/3">
               <p className="text-lg text-slate-600 font-light mb-4 leading-relaxed">
-                {lang === 'es' ? a.desc_es : a.desc_en}
+                {a['desc_' + lang]}
               </p>
               {a.companies && a.companies.length > 0 && (
                 <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  <span className="block mb-2">{lang === 'es' ? 'Empresas recomendadas:' : 'Recommended companies:'}</span>
+                  <span className="block mb-2">{lang === 'es' ? 'Empresas recomendadas:' : lang === 'ca' ? 'Empreses recomanades:' : lang === 'eu' ? 'Gomendatutako enpresak:' : 'Recommended companies:'}</span>
                   <ul className="flex flex-wrap gap-x-6 gap-y-2">
                     {a.companies.map(c => (
                       <li key={c} className="text-blue-600 hover:text-blue-800 transition-colors cursor-pointer">
@@ -739,11 +739,11 @@ function Contact({ lang, t }) {
             <input className="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-500 outline-none transition" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">WhatsApp / {lang === 'es' ? 'Teléfono' : 'Phone'}</label>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">{lang === 'es' ? 'WhatsApp / Teléfono' : lang === 'ca' ? 'WhatsApp / Telèfon' : lang === 'eu' ? 'WhatsApp / Telefonoa' : 'WhatsApp / Phone'}</label>
             <input className="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-500 outline-none transition" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">{lang === 'es' ? 'Mensaje' : 'Message'}</label>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">{lang === 'es' ? 'Mensaje' : lang === 'ca' ? 'Missatge' : lang === 'eu' ? 'Mezua' : 'Message'}</label>
             <textarea className="w-full p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-500 outline-none transition h-32"></textarea>
           </div>
           <button className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition">{t.send}</button>
@@ -760,15 +760,19 @@ function HowTo({ lang, t }) {
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
-            <h3 className="font-bold text-xl mb-4 text-slate-800">🚗 {lang === 'es' ? 'Acceso en vehículo propio' : 'Access by private vehicle'}</h3>
+            <h3 className="font-bold text-xl mb-4 text-slate-800">🚗 {lang === 'es' ? 'Acceso en vehículo propio' : lang === 'ca' ? 'Accés amb vehicle propi' : lang === 'eu' ? 'Sarbidea ibilgailu propioarekin' : 'Access by private vehicle'}</h3>
             <p className="text-slate-600 leading-relaxed mb-4">
-              {lang === 'es'
-                ? 'Solo se puede llegar en vehículo propio. Salir de la A-8 en la estación de servicio "Aldea de Bricia", pasar Posada de Llanes en dirección a Picos de Europa, y pasado Vibaño seguir las indicaciones del Hotel Montaña Mágica. En la subida, tras dejar la primera casa (no cuadra) a mano izquierda, hay que coger un pequeño camino a mano derecha para acceder al barrio de "El Combral". Estamos trabajando en mejorar el acceso, pero por el momento el estado de este camino no es muy bueno y es estrecho.'
-                : 'Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.'}
+              {lang === 'es' 
+  ? 'Solo se puede llegar en vehículo propio. Salir de la A-8 en la estación de servicio "Aldea de Bricia", pasar Posada de Llanes en dirección a Picos de Europa, y pasado Vibaño seguir las indicaciones del Hotel Montaña Mágica. En la subida, tras dejar la primera casa (no cuadra) a mano izquierda, hay que coger un pequeño camino a mano derecha para acceder al barrio de "El Combral". Estamos trabajando en mejorar el acceso, pero por el momento el estado de este camino no es muy bueno y es estrecho.'
+  : lang === 'ca'
+  ? 'Només es pot arribar amb vehicle propi. Sortir de la A-8 a l\\'estació de servei "Aldea de Bricia", passar Posada de Llanes en direcció a Picos de Europa, i passat Vibaño seguir les indicacions de l\\'Hotel Montaña Mágica. A la pujada, després de deixar la primera casa (no quadra) a mà esquerra, cal agafar un petit camí a mà dreta per accedir al barri de "El Combral". Estem treballant per millorar l\\'accés, però de moment l\\'estat d\\'aquest camí no és gaire bo i és estret.'
+  : lang === 'eu'
+  ? 'Ibilgailu propioarekin bakarrik irits daiteke. A-8tik irten "Aldea de Bricia" zerbitzugunean, Posada de Llanes igaro Europako Mendietarantz, eta Vibaño igarota Hotel Montaña Mágica-ren seinaleak jarraitu. Igoeran, ezkerrean dagoen lehen etxea (ez ukuilua) pasatu ondoren, eskuinera doan bide txiki bat hartu behar da "El Combral" auzora sartzeko. Sarbidea hobetzen ari gara, baina oraingoz bide horren egoera ez da oso ona eta estua da.'
+  : 'Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.'}
             </p>
             <a href="https://maps.app.goo.gl/XstKfGvLaXM4cpyM8" target="_blank" rel="noreferrer" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              {lang === 'es' ? 'Abrir ubicación exacta en Google Maps' : 'Open exact location on Google Maps'}
+              {lang === 'es' ? 'Abrir ubicación exacta en Google Maps' : lang === 'ca' ? 'Obrir ubicació exacta a Google Maps' : lang === 'eu' ? 'Ireki kokapen zehatza Google Maps-en' : 'Open exact location on Google Maps'}
             </a>
           </div>
         </div>
