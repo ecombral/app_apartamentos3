@@ -257,11 +257,7 @@ function buildImagesForApartment(apartment) {
 
 // ---- APP COMPONENT ----
 export default function AppRent() {
-  const [lang, setLang] = useState(() => {
-    const browserLang = navigator.language?.slice(0, 2);
-    if (['es', 'eu', 'ca'].includes(browserLang)) return browserLang;
-    return 'en';
-  });
+  const [lang, setLang] = useState('es');
   const t = TEXT[lang];
   const [tab, setTab] = useState('home');
   const [sheetData, setSheetData] = useState([]);
