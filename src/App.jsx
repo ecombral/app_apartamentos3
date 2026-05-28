@@ -16,12 +16,12 @@ const APARTMENTS = [
     title_ca: "El Camió",
     img: "/images/camion0.jpg",
     photoCount: 3,
-    short_es: "Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas",
-    short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people",
+    short_es: "Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas.",
+    short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people.",
     short_eu: "Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikia, bi pertsonentzat.",
     short_ca: "Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Petit, per a dues persones.",
-    long_es: `Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas`,
-    long_en: `An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people`,
+    long_es: `Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas.`,
+    long_en: `An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people.`,
     long_eu: `Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikia, bi pertsonentzat.`,
     long_ca: `Un antic camió frigorífic que ha vist molt món i ha acabat sent una caseta al costat de l'hort i amb una terrassa acollidora. Petit, per a dues persones.`
   },
@@ -33,13 +33,13 @@ const APARTMENTS = [
     title_eu: "Apartamentua",
     title_ca: "L'Apartament",
     img: "/images/apartamento0.jpg",
-    photoCount: 3,
+    photoCount: 15,
     short_es: "Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.",
-    short_en: "Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.",
+    short_en: "Spacious apartment, with nice views of Picos de Europa central range. Two bedrooms and option of an attic for children.",
     short_eu: "Apartamentu zabala, Picos de Europa mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.",
     short_ca: "Apartament espaiós, amb maques vistes al massís central de Picos. Dues habitacions i opció de golfes per a nens.",
     long_es: `Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.`,
-    long_en: `Spacious apartment, with beautiful views of the central massif of Picos. Two bedrooms and option of an attic for children.`,
+    long_en: `Spacious apartment, with nice views of Picos de Europa central range. Two bedrooms and option of an attic for children.`,
     long_eu: `Apartamentu zabala, Picos de Europa mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.`,
     long_ca: `Apartament espaiós, amb maques vistes al massís central de Picos. Dues habitacions i opció de golfes per a nens.`
   },
@@ -139,7 +139,7 @@ const TEXT = {
     contactIntro: "Estamos aquí para ayudarte. Contáctanos por WhatsApp o correo.",
     send: "Enviar Mensaje",
     footer: "© 2026 El Combral, mar y montaña. Todos los derechos reservados.",
-    underRenovation: "No disponible actualmente - en reformas"
+    underRenovation: "No disponible actualmente - en reformas."
   },
   en: {
     appTitle: "El Combral, sea and mountain.",
@@ -164,7 +164,7 @@ const TEXT = {
     contactIntro: "We are here to help. Contact us via WhatsApp or email.",
     send: "Send Message",
     footer: "© 2026 El Combral, sea and mountain. All rights reserved.",
-    underRenovation: "Currently unavailable - under renovation"
+    underRenovation: "Currently unavailable - under renovation."
   },
   eu: {
     appTitle: "El Combral, itsasoa eta mendia.",
@@ -172,7 +172,7 @@ const TEXT = {
     activities: "Jarduerak",
     contact: "Harremanetarako",
     howto: "Nola iritsi",
-    checkAvailability: "Erabilgarritasuna",
+    checkAvailability: "Ikusi egutegia",
     bookNow: "Orain Erreserbatu",
     night: "gau",
     nights: "gauak",
@@ -183,13 +183,13 @@ const TEXT = {
     sendWhatsApp: "Erreserba WhatsApp bidez eskatu",
     available: "Eskuragarri",
     unavailable: "Ez eskuragarri",
-    loading: "Erabilgarritasuna kargatzen...",
+    loading: "Datak kargatzen...",
     description: "Deskribapena",
     gallery: "Galeria",
     contactIntro: "Laguntzeko gaude. Jarri gurekin harremanetan WhatsApp edo posta elektronikoz.",
     send: "Mezua Bidali",
     footer: "© 2026 El Combral, itsasoa eta mendia. Eskubide guztiak erreserbatuta.",
-    underRenovation: "Ez eskuragarri - berritzen"
+    underRenovation: "Ez eskuragarri - berritzen."
   },
   ca: {
     appTitle: "El Combral, mar i muntanya.",
@@ -214,7 +214,7 @@ const TEXT = {
     contactIntro: "Som aquí per ajudar-te. Contacta'ns per WhatsApp o correu.",
     send: "Enviar Missatge",
     footer: "© 2026 El Combral, mar i muntanya. Tots els drets reservats.",
-    underRenovation: "No disponible actualment - en reformes"
+    underRenovation: "No disponible actualment - en reformes."
   }
 };
 
@@ -366,12 +366,22 @@ export default function AppRent() {
                 {t[key]}
               </button>
             ))}
-            <div className="flex items-center gap-6 pt-2 mt-2 border-t border-slate-100">
-              <span className="text-sm font-semibold text-slate-500">Idioma:</span>
-              <button onClick={() => { setLang('es'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'es' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇪🇸</button>
-              <button onClick={() => { setLang('en'); setMobileMenuOpen(false); }} className={`text-2xl transition-transform ${lang === 'en' ? 'scale-110 opacity-100' : 'opacity-50'}`}>🇬🇧</button>
-              <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'eu' ? 'scale-110 opacity-100' : 'opacity-50'}`}><BasqueFlag className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" /></button>
-              <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`transition-transform ${lang === 'ca' ? 'scale-110 opacity-100' : 'opacity-50'}`}><CatalanFlag className="w-7 h-5 object-cover rounded-sm shadow-sm inline-block" /></button>
+            <div className="pt-4 mt-2 border-t border-slate-100">
+              <span className="text-sm font-semibold text-slate-500 mb-3 block">Idioma / Language</span>
+              <div className="grid grid-cols-2 gap-3">
+                <button onClick={() => { setLang('es'); setMobileMenuOpen(false); }} className={`flex items-center justify-center gap-2 p-2 rounded-lg border shadow-sm transition-colors ${lang === 'es' ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                  <span className="text-lg">🇪🇸</span> Español
+                </button>
+                <button onClick={() => { setLang('en'); setMobileMenuOpen(false); }} className={`flex items-center justify-center gap-2 p-2 rounded-lg border shadow-sm transition-colors ${lang === 'en' ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                  <span className="text-lg">🇬🇧</span> English
+                </button>
+                <button onClick={() => { setLang('eu'); setMobileMenuOpen(false); }} className={`flex items-center justify-center gap-2 p-2 rounded-lg border shadow-sm transition-colors ${lang === 'eu' ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                  <BasqueFlag className="w-5 h-3 object-cover rounded-sm shadow-sm" /> Euskara
+                </button>
+                <button onClick={() => { setLang('ca'); setMobileMenuOpen(false); }} className={`flex items-center justify-center gap-2 p-2 rounded-lg border shadow-sm transition-colors ${lang === 'ca' ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                  <CatalanFlag className="w-5 h-3 object-cover rounded-sm shadow-sm" /> Català
+                </button>
+              </div>
             </div>
           </div>
         )}
