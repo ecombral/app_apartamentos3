@@ -33,7 +33,7 @@ const APARTMENTS = [
     title_eu: "Apartamentua",
     title_ca: "L'Apartament",
     img: "/images/apartamento0.jpg",
-    photoCount: 15,
+    photoCount: 13,
     short_es: "Apartamento espacioso, con bonitas vistas al macizo central de Picos. Dos habitaciones y opción de buardilla para niños.",
     short_en: "Spacious apartment, with nice views of Picos de Europa central range. Two bedrooms and option of an attic for children.",
     short_eu: "Apartamentu zabala, Picos de Europa mendien erdiguneko bista ederrekin. Bi logela eta umeentzako ganbara aukera.",
