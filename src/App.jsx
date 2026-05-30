@@ -220,18 +220,18 @@ const TEXT = {
 };
 
 // ---- UTILS ----
-const BasqueFlag = ({className}) => (
+const BasqueFlag = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" className={className}>
-    <path fill="#e10019" d="M0 0h1000v700H0z"/>
-    <path fill="#009b48" d="M0 0l1000 700M0 700L1000 0" stroke="#009b48" strokeWidth="87.5"/>
-    <path fill="#fff" d="M437.5 0h125v700h-125zM0 287.5h1000v125H0z"/>
+    <path fill="#e10019" d="M0 0h1000v700H0z" />
+    <path fill="#009b48" d="M0 0l1000 700M0 700L1000 0" stroke="#009b48" strokeWidth="87.5" />
+    <path fill="#fff" d="M437.5 0h125v700h-125zM0 287.5h1000v125H0z" />
   </svg>
 );
 
-const CatalanFlag = ({className}) => (
+const CatalanFlag = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" className={className}>
-    <rect width="900" height="600" fill="#fcd116"/>
-    <path d="M0 66.6h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0z" fill="#ce1126"/>
+    <rect width="900" height="600" fill="#fcd116" />
+    <path d="M0 66.6h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0zm0 133.3h900v66.6H0z" fill="#ce1126" />
   </svg>
 );
 
@@ -296,7 +296,7 @@ export default function AppRent() {
       if (!row.apartment || !row.date) return;
       const aptKey = String(row.apartment).trim();
       const rowDate = String(row.date).trim();
-      
+
       if (map[aptKey]) {
         const price = parseFloat(row.price);
         let available = false;
@@ -400,19 +400,20 @@ export default function AppRent() {
         <div className="max-w-6xl mx-auto px-6">
           <p>{t.footer}</p>
         </div>
-        {/* Hidden Admin Link */}
-        <button 
-          onClick={() => { setTab('admin'); setSelectedApt(null); }} 
-          className="absolute bottom-2 right-2 opacity-10 hover:opacity-100 text-xs text-slate-600 transition-opacity p-2"
-        >
-          🔒
-        </button>
+        <div className="mt-4">
+          <button 
+            onClick={() => { setTab('admin'); setSelectedApt(null); }} 
+            className="absolute bottom-2 right-2 md:bottom-4 md:right-4 z-50 opacity-10 hover:opacity-100 text-lg text-slate-600 transition-opacity p-4 cursor-pointer"
+            aria-label="Admin"
+          >
+            🔒
+          </button>
+        </div>
       </footer>
     </div>
   );
 }
 
-// ---- SUB-COMPONENTS ----
 
 function Home({ lang, t, onSelect, loading }) {
   const [photoIndices, setPhotoIndices] = useState(() => {
@@ -453,15 +454,14 @@ function Home({ lang, t, onSelect, loading }) {
       {/* HERO */}
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-white overflow-hidden group">
         <div className="absolute inset-0 bg-black/40 z-10"></div>
-        
+
         {heroImages.map((src, idx) => (
-          <img 
+          <img
             key={src}
-            src={src} 
-            alt={`Hero ${idx}`} 
-            className={`absolute inset-0 w-full h-full object-cover transform transition-all duration-1000 ${
-              idx === bgIndex ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
-            }`} 
+            src={src}
+            alt={`Hero ${idx}`}
+            className={`absolute inset-0 w-full h-full object-cover transform transition-all duration-1000 ${idx === bgIndex ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+              }`}
           />
         ))}
 
@@ -562,7 +562,7 @@ function ApartmentDetail({ apartmentId, lang, t, availability, onClose }) {
     let discount = 0;
     if (numDays >= 15) discount = 0.20;
     else if (numDays >= 8) discount = 0.10;
-    
+
     return {
       numDays,
       originalTotal: total,
@@ -722,7 +722,7 @@ ${priceInfo.discountPercent > 0 ? `Descuento: ${priceInfo.discountPercent}%\n` :
                     disabled={!validDates}
                     className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all transform active:scale-95 ${validDates ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
                   >
-                    {priceInfo && priceInfo.numDays < 4 
+                    {priceInfo && priceInfo.numDays < 4
                       ? (lang === 'es' ? 'Mínimo 4 noches' : lang === 'ca' ? 'Mínim 4 nits' : lang === 'eu' ? 'Gutxienez 4 gau' : 'Minimum 4 nights')
                       : t.sendWhatsApp}
                   </button>
@@ -859,13 +859,13 @@ function HowTo({ lang, t }) {
           <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
             <h3 className="font-bold text-xl mb-4 text-slate-800">🚗 {lang === 'es' ? 'Acceso en vehículo propio' : lang === 'ca' ? 'Accés amb vehicle propi' : lang === 'eu' ? 'Sarbidea ibilgailu propioarekin' : 'Access by private vehicle'}</h3>
             <p className="text-slate-600 leading-relaxed mb-4">
-              {lang === 'es' 
-  ? `Solo se puede llegar en vehículo propio. Salir de la A-8 en la estación de servicio "Aldea de Bricia", pasar Posada de Llanes en dirección a Picos de Europa, y pasado Vibaño seguir las indicaciones del Hotel Montaña Mágica. En la subida, tras dejar la primera casa (no cuadra) a mano izquierda, hay que coger un pequeño camino a mano derecha para acceder al barrio de "El Combral". Estamos trabajando en mejorar el acceso, pero por el momento el estado de este camino no es muy bueno y es estrecho.`
-  : lang === 'ca'
-  ? `Només es pot arribar amb vehicle propi. Sortir de la A-8 a l'estació de servei "Aldea de Bricia", passar Posada de Llanes en direcció a Picos de Europa, i passat Vibaño seguir les indicacions de l'Hotel Montaña Mágica. A la pujada, després de deixar la primera casa (no quadra) a mà esquerra, cal agafar un petit camí a mà dreta per accedir al barri de "El Combral". Estem treballant per millorar l'accés, però de moment l'estat d'aquest camí no és gaire bo i és estret.`
-  : lang === 'eu'
-  ? `Ibilgailu propioarekin bakarrik irits daiteke. A-8tik irten "Aldea de Bricia" zerbitzugunean, Posada de Llanes igaro Picos de Europa mendietarantz, eta Vibaño igarota Hotel Montaña Mágica-ren seinaleak jarraitu. Igoeran, ezkerrean dagoen lehen etxea (ez ukuilua) pasatu ondoren, eskuinera doan bide txiki bat hartu behar da "El Combral" auzora sartzeko. Sarbidea hobetzen ari gara, baina oraingoz bide horren egoera ez da oso ona eta estua da.`
-  : `Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.`}
+              {lang === 'es'
+                ? `Solo se puede llegar en vehículo propio. Salir de la A-8 en la estación de servicio "Aldea de Bricia", pasar Posada de Llanes en dirección a Picos de Europa, y pasado Vibaño seguir las indicaciones del Hotel Montaña Mágica. En la subida, tras dejar la primera casa (no cuadra) a mano izquierda, hay que coger un pequeño camino a mano derecha para acceder al barrio de "El Combral". Estamos trabajando en mejorar el acceso, pero por el momento el estado de este camino no es muy bueno y es estrecho.`
+                : lang === 'ca'
+                  ? `Només es pot arribar amb vehicle propi. Sortir de la A-8 a l'estació de servei "Aldea de Bricia", passar Posada de Llanes en direcció a Picos de Europa, i passat Vibaño seguir les indicacions de l'Hotel Montaña Mágica. A la pujada, després de deixar la primera casa (no quadra) a mà esquerra, cal agafar un petit camí a mà dreta per accedir al barri de "El Combral". Estem treballant per millorar l'accés, però de moment l'estat d'aquest camí no és gaire bo i és estret.`
+                  : lang === 'eu'
+                    ? `Ibilgailu propioarekin bakarrik irits daiteke. A-8tik irten "Aldea de Bricia" zerbitzugunean, Posada de Llanes igaro Picos de Europa mendietarantz, eta Vibaño igarota Hotel Montaña Mágica-ren seinaleak jarraitu. Igoeran, ezkerrean dagoen lehen etxea (ez ukuilua) pasatu ondoren, eskuinera doan bide txiki bat hartu behar da "El Combral" auzora sartzeko. Sarbidea hobetzen ari gara, baina oraingoz bide horren egoera ez da oso ona eta estua da.`
+                    : `Access is only possible by private vehicle. Exit the A-8 at the "Aldea de Bricia" service station, pass Posada de Llanes towards Picos de Europa, and after Vibaño follow the signs for Hotel Montaña Mágica. On the way up, after passing the first house on the left, take a small path to the right to access the "El Combral" neighborhood. We are working on improving the access, but currently, the condition of this path is not very good and it is narrow.`}
             </p>
             <a href="https://maps.app.goo.gl/XstKfGvLaXM4cpyM8" target="_blank" rel="noreferrer" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -874,13 +874,13 @@ function HowTo({ lang, t }) {
           </div>
         </div>
         <div className="bg-slate-200 rounded-xl overflow-hidden min-h-[300px] md:h-auto relative shadow-sm border border-slate-100">
-          <iframe 
-            src="https://maps.google.com/maps?q=Hotel+Montaña+Magica,+Llanes&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+          <iframe
+            src="https://maps.google.com/maps?q=Hotel+Montaña+Magica,+Llanes&t=&z=13&ie=UTF8&iwloc=&output=embed"
             className="absolute inset-0 w-full h-full"
-            frameBorder="0" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            aria-hidden="false" 
+            frameBorder="0"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            aria-hidden="false"
             tabIndex="0">
           </iframe>
         </div>
