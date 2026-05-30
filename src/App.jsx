@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import Papa from "papaparse";
+import AdminDashboard from "./components/AdminDashboard";
 
 // ---- CONFIG ----
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoXmH3uHC7Ezw17NKLFWaVJzF2kRveW4xquJGGr3VYckc1lGqMOW62QeTyhCDiUPu4vYkxYTEInOXf/pub?output=csv";
@@ -264,6 +265,7 @@ export default function AppRent() {
   const [loading, setLoading] = useState(true);
   const [selectedApt, setSelectedApt] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Fetch Data (Google Sheets via PapaParse)
   useEffect(() => {
@@ -284,7 +286,7 @@ export default function AppRent() {
     fetchData();
     const interval = setInterval(fetchData, REFRESH_SECONDS * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [refreshTrigger]);
 
   // Use availability map
   const availability = useMemo(() => {
@@ -312,11 +314,12 @@ export default function AppRent() {
     return map;
   }, [sheetData]);
 
-  const CurrentView = () => {
+  const renderCurrentView = () => {
     if (selectedApt) return <ApartmentDetail apartmentId={selectedApt} lang={lang} t={t} availability={availability[APARTMENTS.find(a => a.id === selectedApt)?.key]} onClose={() => setSelectedApt(null)} />;
     if (tab === 'activities') return <Activities lang={lang} t={t} />;
     if (tab === 'contact') return <Contact lang={lang} t={t} />;
     if (tab === 'howto') return <HowTo lang={lang} t={t} />;
+    if (tab === 'admin') return <AdminDashboard apartments={APARTMENTS} sheetData={sheetData} onRefresh={() => setRefreshTrigger(t => t + 1)} />;
     return <Home lang={lang} t={t} availability={availability} onSelect={setSelectedApt} loading={loading} />;
   };
 
@@ -389,14 +392,21 @@ export default function AppRent() {
 
       {/* MAIN CONTENT */}
       <main className="flex-grow pt-16">
-        <CurrentView />
+        {renderCurrentView()}
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+      <footer className="bg-slate-900 text-slate-400 py-8 text-center text-sm relative">
         <div className="max-w-6xl mx-auto px-6">
           <p>{t.footer}</p>
         </div>
+        {/* Hidden Admin Link */}
+        <button 
+          onClick={() => { setTab('admin'); setSelectedApt(null); }} 
+          className="absolute bottom-2 right-2 opacity-10 hover:opacity-100 text-xs text-slate-600 transition-opacity p-2"
+        >
+          🔒
+        </button>
       </footer>
     </div>
   );
@@ -411,6 +421,13 @@ function Home({ lang, t, onSelect, loading }) {
     return indices;
   });
 
+  const [bgIndex, setBgIndex] = useState(0);
+  const heroImages = [
+    '/images/inicio1.jpg',
+    '/images/inicio2.jpg',
+    '/images/inicio3.jpg'
+  ];
+
   const nextPhoto = (id, count, e) => {
     e.stopPropagation();
     setPhotoIndices(prev => ({ ...prev, [id]: (prev[id] + 1) % count }));
@@ -421,14 +438,43 @@ function Home({ lang, t, onSelect, loading }) {
     setPhotoIndices(prev => ({ ...prev, [id]: (prev[id] - 1 + count) % count }));
   };
 
+  const nextBg = (e) => {
+    if (e) e.stopPropagation();
+    setBgIndex(prev => (prev + 1) % heroImages.length);
+  };
+
+  const prevBg = (e) => {
+    if (e) e.stopPropagation();
+    setBgIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
+  };
+
   return (
     <div className="animate-fade-in">
       {/* HERO */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-white overflow-hidden">
+      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-white overflow-hidden group">
         <div className="absolute inset-0 bg-black/40 z-10"></div>
-        <img src="/images/imagenfondo.jpg" alt="Hero" className="absolute inset-0 w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite] transform transition-transform duration-[20s] hover:scale-110" style={{ animation: 'none' }} />
-        <div className="relative z-20 text-center px-4 max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-shadow-lg leading-tight">
+        
+        {heroImages.map((src, idx) => (
+          <img 
+            key={src}
+            src={src} 
+            alt={`Hero ${idx}`} 
+            className={`absolute inset-0 w-full h-full object-cover transform transition-all duration-1000 ${
+              idx === bgIndex ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+            }`} 
+          />
+        ))}
+
+        {/* Carousel Arrows on Hero */}
+        <button onClick={prevBg} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-3 md:p-4 rounded-full transition-colors z-30 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100 backdrop-blur-sm border border-white/30">
+          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button onClick={nextBg} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-3 md:p-4 rounded-full transition-colors z-30 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100 backdrop-blur-sm border border-white/30">
+          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        <div className="relative z-20 text-center px-4 max-w-3xl pointer-events-none">
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-shadow-lg leading-tight pointer-events-auto">
             {t.appTitle}
           </h1>
         </div>
@@ -447,8 +493,8 @@ function Home({ lang, t, onSelect, loading }) {
             const currentIdx = photoIndices[apt.id];
             return (
               <div key={apt.id} onClick={() => !apt.isUnavailable && onSelect(apt.id)} className={`group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${idx === 1 ? 'delay-100' : idx === 2 ? 'delay-200' : ''}`}>
-                <div className="relative h-64 overflow-hidden">
-                  <img src={images[currentIdx] || apt.img} alt={apt.title_es} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="relative h-64 overflow-hidden bg-slate-100">
+                  <img src={images[currentIdx] || apt.img} alt={apt.title_es} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
 
                   {/* Carousel Arrows on Home Card */}
                   {apt.photoCount > 1 && (
@@ -563,8 +609,8 @@ ${priceInfo.discountPercent > 0 ? `Descuento: ${priceInfo.discountPercent}%\n` :
           <p className="text-slate-600 text-lg mb-6 leading-relaxed">{apt['long_' + lang]}</p>
 
           <div className="space-y-4">
-            <div className="relative rounded-xl overflow-hidden shadow-md aspect-video group">
-              <img src={images[activeImgIndex] || apt.img} alt="Gallery view" className="w-full h-full object-cover transition-transform duration-500" />
+            <div className="relative rounded-xl overflow-hidden shadow-md aspect-video group bg-slate-100">
+              <img src={images[activeImgIndex] || apt.img} alt="Gallery view" className="w-full h-full object-contain transition-transform duration-500" />
 
               {/* Navigation arrows in Detail Gallery */}
               {images.length > 1 && (
@@ -586,7 +632,7 @@ ${priceInfo.discountPercent > 0 ? `Descuento: ${priceInfo.discountPercent}%\n` :
                   onClick={() => setActiveImgIndex(i)}
                   className={`cursor-pointer rounded-lg overflow-hidden aspect-square shadow-sm border-2 transition-all ${activeImgIndex === i ? 'border-blue-500' : 'border-transparent'}`}
                 >
-                  <img src={src} className="w-full h-full object-cover hover:scale-110 transition duration-500" alt={`Thumbnail ${i}`} />
+                  <img src={src} className="w-full h-full object-contain hover:scale-110 transition duration-500" alt={`Thumbnail ${i}`} />
                 </div>
               ))}
               {/* Fallback to show at least placeholders if low count */}
