@@ -145,7 +145,17 @@ export default function AdminDashboard({ apartments, sheetData, onRefresh }) {
     <div className="max-w-6xl mx-auto px-6 py-8 animate-fade-in">
       <div className="flex justify-between items-center mb-8 border-b pb-4">
         <h1 className="text-3xl font-bold text-slate-800">Admin Dashboard</h1>
-        <button onClick={() => { setIsLoggedIn(false); setPin(''); }} className="text-slate-500 hover:text-slate-800">Logout</button>
+        <div className="flex items-center gap-4">
+          <a 
+            href="https://docs.google.com/spreadsheets/d/1o4nTRQQl99G8UXAm1kEF3Z5beodUq-3GKgVLJAp9ufo/edit?gid=0#gid=0" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg text-sm font-semibold transition-colors border border-green-200"
+          >
+            <span>📊</span> Open Spreadsheet
+          </a>
+          <button onClick={() => { setIsLoggedIn(false); setPin(''); }} className="text-slate-500 hover:text-slate-800 font-medium">Logout</button>
+        </div>
       </div>
 
       {!APPS_SCRIPT_WEBHOOK_URL && (
