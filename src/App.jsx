@@ -16,7 +16,7 @@ const APARTMENTS = [
     title_eu: "Kamioia",
     title_ca: "El Camió",
     img: "/images/camion0.jpg",
-    photoCount: 3,
+    photoCount: 8,
     short_es: "Un antiguo camión frigorifico que ha visto mucho mundo y terminó siendo una casita al lado del huerto y con una terraza acogedora. Txikitin, para dos personas.",
     short_en: "An old refrigerated truck that has seen much of the world and ended up as a little house next to the orchard with a cozy terrace. Small, for two people.",
     short_eu: "Mundu asko ikusi duen kamioi frigorifiko zaharra, baratze ondoan eta terraza eroso batekin etxetxo bat bihurtuta. Txikia, bi pertsonentzat.",
