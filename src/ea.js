@@ -28,7 +28,7 @@ const APARTMENTS = [
     title_es: "El camión",
     title_en: "El Camión",
     img: "/images/camion0.jpg",
-    photoCount: 3, // expects camion0.jpg .. camion2.jpg
+    photoCount: 8, // expects camion0.jpg .. camion7.jpg
     short_es: "Pequeño y acogedor, ideal para 2 personas.",
     short_en: "Small & cozy, great for 2 guests.",
     long_es: `Situada en un acantilado, esta pequeña cabaña de cedro y cristal equilibra la montaña y el mar. Picos de granito se alzan detrás; el océano se extiende delante. Dentro, esperan una acogedora estufa de leña y una cama alta. Explora senderos de montaña y pozas de marea. Es el escape perfecto, combinando picos escarpados y olas tranquilas.`,
