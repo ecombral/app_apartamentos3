@@ -153,7 +153,7 @@ function dateRange(start, end) {
   const a = new Date(start);
   const b = new Date(end);
   const arr = [];
-  for (let d = new Date(a); d <= b; d.setDate(d.getDate()+1)) arr.push(formatDate(new Date(d)));
+  for (let d = new Date(a); d < b; d.setDate(d.getDate()+1)) arr.push(formatDate(new Date(d)));
   return arr;
 }
 
